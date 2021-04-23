@@ -9,56 +9,55 @@
 // Libraries: flash memory storage ( Library: DueFlashStorage, by Sebastian Nilsson, version 1.0.0 )
 
 
-#define STARTUP_DELAY         1000          // delay before hardware initialization
+#define STARTUP_DELAY         1000      
 
-// used Arduino Pins list
+
 #define ONE_WIRE_BUS          (8)
-#define BUZZER                (9)           // not used from here, see BUZZER_PWM_PIN
+#define BUZZER                (9)           
 #define BUTTON_SET            (10)
 #define BUTTON_PLUS           (11)
 #define BUTTON_MINUS          (12)
 #define LED_INTERNAL          (13)
 
-// buzzer PWM used, pin 8 = C.21 = PWML4
-#define BUZZER_PWM_PIN        PWML4_PC21    // the actual PWM pin
 
-#define BUZZER_FREQUENCY      (2700)          // 2.7 kHz = 2700 Hz
+#define BUZZER_PWM_PIN        PWML4_PC21    
+
+#define BUZZER_FREQUENCY      (2700)        
 #define BUZZER_PERIOD         ((100000000) / (BUZZER_FREQUENCY))
-#define BUZZER_DUTY           (BUZZER_PERIOD / 2)     // 50% duty cycle = 1/2 time from BUZZER_PERIOD
+#define BUZZER_DUTY           (BUZZER_PERIOD / 2)     
 
-#define ADDRESS_DISPLAY       (0x3C)        // I2C Address for the display is 0x3C by default
+#define ADDRESS_DISPLAY       (0x3C)       
 
-// used Arduino communication list
-#define SERIAL_CO2            Serial3       // use UART3
-#define WIRE_RTC              Wire          // WARNING! Cannot be changed for RTC DS3231 Library!
-#define WIRE_DISPLAY          Wire1         // Display
+#define SERIAL_CO2            Serial3      
+#define WIRE_RTC              Wire          
+#define WIRE_DISPLAY          Wire1         
 
-// temperature sensors count
-#define COUNT_TERMO           (4)           // we expect to have 4 sensors
 
-// after this much of attempts failed we will try to re-initialize the ds18b20 bus and sensors
+#define COUNT_TERMO           (4)           
+
+
 #define TEMP_MAX_ERRORS_BEFORE_REINIT   (10)
 
-// used communication speed list (baud rates)
-#define SPEED_CO2             (9600)        // default communication speed of MH-Z19
-#define SPEED_DISPLAY         (400000)      // should be changed inside the Library for Display
-#define SPEED_RTC             (400000)      // 400k is working fine (change to 100k if any problems)
 
-// period for executing the routines
-#define PERIOD_CO2            (1000)        // every 1 sec should be fine
-#define PERIOD_RTC            (500)         // every 0.5s should be good
-#define PERIOD_TERMO_INIT     (1500)        // time needed for DS18b20 to init the bus and read the sensors
-#define PERIOD_TERMO_REQUEST  (200)         // time needed for sent the request
-#define PERIOD_TERMO_READ     (100)         // time between reading the sensors
-#define PERIOD_DISPLAY_SHOW   (75)          // 75ms is ok, that will give us ~ 13fps
-#define PERIOD_DISPLAY_FLASH  (500)         // 500ms ':' is flashing on the clock
-#define PERIOD_DISPLAY_BLINK  (300)         // 300ms is blinking element on the clock
-#define PERIOD_BEEP           (500)         // 500ms beep, 500ms silent
-#define PERIOD_ALARM          (60000)       // 1 min alarm sound
-#define PERIOD_LED            (1000)        // 1 second LED blink period
+#define SPEED_CO2             (9600)       
+#define SPEED_DISPLAY         (400000)      
+#define SPEED_RTC             (400000)      
 
-#define MAGIC_NUMBER          (0x55)        // magic number to see if the value in nvm is OK
-#define NVM_TRUE              (0x01)        // just to vary from 0 and 1 values
+
+#define PERIOD_CO2            (1000)        
+#define PERIOD_RTC            (500)         
+#define PERIOD_TERMO_INIT     (1500)       
+#define PERIOD_TERMO_REQUEST  (200)         
+#define PERIOD_TERMO_READ     (100)       
+#define PERIOD_DISPLAY_SHOW   (75)         
+#define PERIOD_DISPLAY_FLASH  (500)      
+#define PERIOD_DISPLAY_BLINK  (300)        
+#define PERIOD_BEEP           (500)         
+#define PERIOD_ALARM          (60000)       
+#define PERIOD_LED            (1000)      
+
+#define MAGIC_NUMBER          (0x55)        
+#define NVM_TRUE              (0x01)        
 #define NVM_FALSE             (0x02)
 
 
