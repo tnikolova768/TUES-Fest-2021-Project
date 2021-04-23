@@ -43,36 +43,36 @@ namespace arduino_due
     {
       const uint32_t two_power_values[max_clocks+1]=
       {
-        0, // no clock divisor
-        1, // clock divisor 2
-        2, // clock divisor 4
-        3, // clock divisor 8
-        4, // clock divisor 16
-        5, // clock divisor 32
-        6, // clock divisor 64 
-        7, // clock divisor 128 
-        8, // clock divisor 256 
-        9, // clock divisor 512 
-        10, // clock divisor 1024 
-        11, // clock divisor 2048 
-        17 // clock divisor 131072 
+        0, 
+        1, 
+        2, 
+        3,
+        4, 
+        5, 
+        6,  
+        7, 
+        8,
+        9, 
+        10, 
+        11, 
+        17 
       };
 
       const double max_periods[max_clocks+1]=
       {
-        max_period(0), // no clock divisor
-        max_period(1), // clock divisor 2
-        max_period(2), // clock divisor 4
-        max_period(3), // clock divisor 8
-        max_period(4), // clock divisor 16
-        max_period(5), // clock divisor 32
-        max_period(6), // clock divisor 64 
-        max_period(7), // clock divisor 128 
-        max_period(8), // clock divisor 256 
-        max_period(9), // clock divisor 512 
-        max_period(10), // clock divisor 1024 
-        max_period(11), // clock divisor 2048 
-        max_period(12) // clock divisor 131072 
+        max_period(0), 
+        max_period(1),
+        max_period(2), 
+        max_period(3), 
+        max_period(4),
+        max_period(5), 
+        max_period(6), 
+        max_period(7), 
+        max_period(8),  
+        max_period(9),  
+        max_period(10), 
+        max_period(11), 
+        max_period(12) 
       };
  
       const uint32_t clock_masks[max_clocks+1]=
@@ -94,23 +94,23 @@ namespace arduino_due
 
       const double tick_times[max_clocks+1]=
       {
-        tick_time(0), // no clock divisor
-        tick_time(1), // clock divisor 2
-        tick_time(2), // clock divisor 4
-        tick_time(3), // clock divisor 8
-        tick_time(4), // clock divisor 16
-        tick_time(5), // clock divisor 32
-        tick_time(6), // clock divisor 64 
-        tick_time(7), // clock divisor 128 
-        tick_time(8), // clock divisor 256 
-        tick_time(9), // clock divisor 512 
-        tick_time(10), // clock divisor 1024 
-        tick_time(11), // clock divisor 2048 
-        tick_time(12) // clock divisor 131072 
+        tick_time(0),
+        tick_time(1),
+        tick_time(2), 
+        tick_time(3), 
+        tick_time(4), 
+        tick_time(5), 
+        tick_time(6), 
+        tick_time(7), 
+        tick_time(8), 
+        tick_time(9), 
+        tick_time(10), 
+        tick_time(11), 
+        tick_time(12) 
       };
  
       bool find_clock(
-        uint32_t period, // usecs.
+        uint32_t period, 
         uint32_t& clock
       ) noexcept
       {
@@ -119,27 +119,20 @@ namespace arduino_due
           (clock<=max_clocks) && 
           (static_cast<double>(period)/100000000>max_periods[clock]);
           clock++
-        ) { /* nothing */ }
+        ) { 
 
         if(clock>max_clocks) return false;
         return true;
       }
 
-      // WARNING: this is a sustituton of PWMC_SetDutyCycle() function
-      // in libsam, to avoid the assert.
       void pwmc_setdutycycle(Pwm* pPwm,uint32_t ul_channel,uint16_t duty)
       {
-        // WARNING: assert has been commented, the caller should
-        // guarantee that duty<=period when calling this function,
-        // in order to generate a good PWM signal
-        //assert(duty <= pPwm->PWM_CH_NUM[ul_channel].PWM_CPRD);
 
-        /* If ul_channel is disabled, write to CDTY */
         if ((pPwm->PWM_SR & (1 << ul_channel)) == 0) {
 
             pPwm->PWM_CH_NUM[ul_channel].PWM_CDTY = duty;
         }
-        /* Otherwise use update register */
+
         else {
 
             pPwm->PWM_CH_NUM[ul_channel].PWM_CDTYUPD = duty;
